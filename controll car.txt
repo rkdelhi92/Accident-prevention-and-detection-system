@@ -1,0 +1,91 @@
+#define m1f 3    // rear motor
+#define m1b 4
+#define m2f 5    // front motor
+#define m2b 6
+
+int var;
+
+void setup() 
+{
+  Serial.begin(9600);
+  pinMode(m1f, OUTPUT);
+  pinMode(m1b, OUTPUT);
+  pinMode(m2f, OUTPUT);
+  pinMode(m2b, OUTPUT);
+}
+
+void loop() 
+{
+  while(Serial.available())
+  {
+    var = Serial.read();
+    if(var == 1)
+    {
+     Serial.println("Forward");
+     forward();
+    }
+    if(var == 2)
+    {
+     Serial.println("Right");
+     right();
+    }
+
+    if(var == 3)
+    {
+      Serial.println("Left");
+      left();
+    }
+    
+    if(var == 4)
+    {
+      Serial.println("Backward");
+      backward();
+    }
+
+    if(var == 5)
+    {
+      Serial.println("Stop");
+      Stop();
+    }
+  }
+}
+
+void forward()
+{
+   digitalWrite(m1f, HIGH);
+   digitalWrite(m1b, LOW);
+   digitalWrite(m2f, HIGH);
+   digitalWrite(m2b, LOW);
+}
+
+void backward()
+{
+   digitalWrite(m1f, LOW);
+   digitalWrite(m1b, HIGH);
+   digitalWrite(m2f, LOW);
+   digitalWrite(m2b, HIGH); 
+}
+
+void left()
+{
+   digitalWrite(m1f, LOW);
+   digitalWrite(m1b, LOW);
+   digitalWrite(m2f, HIGH);
+   digitalWrite(m2b, LOW);
+}
+
+void right()
+{
+   digitalWrite(m1f, HIGH);
+   digitalWrite(m1b, LOW);
+   digitalWrite(m2f, LOW);
+   digitalWrite(m2b, LOW);
+}
+
+void Stop()
+{
+   digitalWrite(m1f, LOW);
+   digitalWrite(m1b, LOW);
+   digitalWrite(m2f, LOW);
+   digitalWrite(m2b, LOW);
+}
